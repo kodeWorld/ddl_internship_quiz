@@ -1,5 +1,7 @@
 'use strict';
 
+const fs = require('fs');
+
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -22,16 +24,30 @@ function readLine() {
     return inputString[currentLine++];
 }
 
-// Complete the staircase function below.
-function staircase(n) {
-for (let i = 1; i <= n; i++) {
-    console.log("#".repeat(i).padStart(n));
+// Complete the saveThePrisoner function below.
+ function saveThePrisoner(n, m, s) {
+    return (m-1 + s)%n || n;
 }
 
-}
 
 function main() {
-    const n = parseInt(readLine(), 10);
+    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
 
-    staircase(n);
+    const t = parseInt(readLine(), 10);
+
+    for (let tItr = 0; tItr < t; tItr++) {
+        const nms = readLine().split(' ');
+
+        const n = parseInt(nms[0], 10);
+
+        const m = parseInt(nms[1], 10);
+
+        const s = parseInt(nms[2], 10);
+
+        let result = saveThePrisoner(n, m, s);
+
+        ws.write(result + "\n");
+    }
+
+    ws.end();
 }
